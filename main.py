@@ -1,0 +1,4 @@
+import inspector
+
+
+inspector.show()
