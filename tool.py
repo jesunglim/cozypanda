@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 
 def domenu():
     print("OK")
@@ -30,14 +31,20 @@ helpmenu.add_command(label="About...", command=domenu)
 
 root.config(menu=menubar)             # 생성된 객체를 위에서 생성된 메뉴바에 연결    
 
-hierachy = Label(root, text="Heirachy")
+hierachyFrame = ttk.LabelFrame(root)
+hierachyFrame.grid(row=0, column=0)
+hierachy = ttk.Label(hierachyFrame, text="Heirachy")
 hierachy.grid(row=0, column=0)
 
-inspector = Label(root, text="Inspector")
+inspectorFrame = ttk.LabelFrame(root)
+inspectorFrame.grid(row=0, column=1)
+inspector = ttk.Label(inspectorFrame, text="Inspector")
 inspector.grid(row=0, column=1)
 
-project = Label(root, text="project")
+projectFrame = ttk.LabelFrame(root)
+projectFrame.grid(row=1)
+project = ttk.Label(projectFrame, text="project")
 project.grid(row=1)
-
+project.pack()
 
 root.mainloop()
