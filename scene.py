@@ -4,32 +4,27 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from panda3d.core import loadPrcFileData
 
+
+from direct.showbase.DirectObject import DirectObject 
+
 loadPrcFileData("", "window-title Scene") # window name
 loadPrcFileData("", "icon-filename icon/scene.ico") # window icon
 
 class MyApp(ShowBase):
+    
     def __init__(self):
         ShowBase.__init__(self)
 
         # Load the environment model.
-        self.scene = self.loader.loadModel("models/environment")
+        box = self.loader.loadModel("models/box")
         # Reparent the model to render.
-        self.scene.reparentTo(self.render)
+        box.reparentTo(self.render)
         # Apply scale and position transforms on the model.
-        self.scene.setScale(0.25, 0.25, 0.25)
-        self.scene.setPos(-8, 42, 0)
-
-        # Add the spinCameraTask procedure to the task manager.
-        self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
-
-    # Define a procedure to move the camera.
-    def spinCameraTask(self, task):
-        angleDegrees = task.time * 6.0
-        angleRadians = angleDegrees * (pi / 180.0)
-        self.camera.setPos(20 * sin(angleRadians), -20 * cos(angleRadians), 3)
-        self.camera.setHpr(angleDegrees, 0, 0)
-        return Task.cont
+        #box.scene.setScale(1, 1, 1)
+        box.setPos(0, 10, 0)
 
 
-app = MyApp()
-app.run()
+        panda = self.loader.loadModel("models/panda")
+        panda.setPos(-2, 10, 0)
+        panda.setScale(0.2, 0.2, 0.2)
+        panda.reparentTo(self.render)

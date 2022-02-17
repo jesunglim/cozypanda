@@ -1,11 +1,21 @@
 import scene
 
+
 from tkinter import *
 from tkinter import ttk
 
 def show():
+    # 임시 함수
     def domenu():
         print("OK")
+
+    # 버튼 테스트
+    def scene_run():
+        scene.MyApp().run()
+
+
+
+
 
     root = Tk()
     root.iconbitmap(r'icon/icon.ico')
@@ -41,9 +51,7 @@ def show():
         top_label = Label(root, text="Box 1", bg="#4C4C4C")           # top layout
         top_label.pack(ipadx=10, ipady=1, fill='both')
 
-        # 버튼 테스트
-        def scene_run():
-            scene.MyApp.run()
+        
 
         btn1 = Button(top_label, text = "Run", command=scene_run)
         btn1.pack()
