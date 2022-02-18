@@ -18,7 +18,7 @@ def show():
     root = Tk()
     root.iconbitmap(r'icon/icon.ico')
     root.title('CozyPanda')
-    root.geometry("300x500")
+    root.geometry("300x600")
 
     def menu_bar():
         menubar = Menu(root)                                # 윈도우에 메뉴바 추가
@@ -57,7 +57,8 @@ def show():
         def m_label():
             mid_label = Label(root, text="Box 2", bg="gray")            # mid layout
             hierarchy_label = Label(mid_label, bg="gray") # heirachy
-            hierarchy_title = Label(hierarchy_label, text="Hierarchy")
+            hierarchy_title = Label(hierarchy_label, text="Hierarchy", bg="#B7B6B6")
+            hierarchy_menu_label = Label(hierarchy_label, bg="gray")
 
             
             obj_frame = Label(hierarchy_label)
@@ -70,12 +71,15 @@ def show():
                 for item in h_list:
                     list.insert(END, item)
 
-            add_btn = Button(hierarchy_label, text=' Add ', command=refresh)
+            add_btn = Button(hierarchy_menu_label, text=' Add ', command=refresh)
+            del_btn = Button(hierarchy_menu_label, text=' Del ', command=refresh)
 
             mid_label.pack(ipadx=10, ipady=10, fill='both', expand=True)
             hierarchy_label.pack(ipadx=10, ipady=10, expand=True, fill='both', side='left')
-            hierarchy_title.pack(side='top')
-            add_btn.pack(padx=5, pady=5, side='top')
+            hierarchy_title.pack(side='top', fill='x')
+            hierarchy_menu_label.pack(side='top', fill='x')
+            add_btn.pack(padx=5, pady=5, side='left')
+            del_btn.pack(padx=5, pady=5, side='left')
             obj_frame.pack(expand=True, fill='both')
             scrollbar.pack(side='right', fill='both')
             list.pack(expand=True, fill='both')
