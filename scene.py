@@ -4,9 +4,6 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from panda3d.core import loadPrcFileData
 
-
-from direct.showbase.DirectObject import DirectObject 
-
 loadPrcFileData("", "window-title Scene") # window name
 loadPrcFileData("", "icon-filename icon/scene.ico") # window icon
 
@@ -28,3 +25,7 @@ class MyApp(ShowBase):
         panda.setPos(-2, 10, 0)
         panda.setScale(0.2, 0.2, 0.2)
         panda.reparentTo(self.render)
+
+
+
+MyApp().run()

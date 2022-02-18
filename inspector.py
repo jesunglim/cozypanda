@@ -1,22 +1,25 @@
-import scene
-
+import subprocess
 
 from tkinter import *
 from tkinter import ttk
+
+
+
+
+# 버튼 테스트
+def scene_run():
+    proc = subprocess.Popen(['python', 'scene.py'])
+
+    
+    
+
 
 def show():
     # 임시 함수
     def domenu():
         print("OK")
-
-    # 버튼 테스트
-    def scene_run():
-        scene.MyApp().run()
-
-
-
-
-
+        
+        
     root = Tk()
     root.iconbitmap(r'icon/icon.ico')
     root.title('CozyPanda')
