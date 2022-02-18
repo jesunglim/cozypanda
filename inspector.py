@@ -1,18 +1,13 @@
 import subprocess
 
 from tkinter import *
-from tkinter import ttk
 
 
-
+h_list = ["box","camera"]
 
 # 버튼 테스트
 def scene_run():
     proc = subprocess.Popen(['python', 'scene.py'])
-
-    
-    
-
 
 def show():
     # 임시 함수
@@ -51,26 +46,50 @@ def show():
 
     def main_window():
         # main window
-        top_label = Label(root, text="Box 1", bg="#4C4C4C")           # top layout
-        top_label.pack(ipadx=10, ipady=1, fill='both')
+        def t_label():
+            top_label = Label(root, text="Box 1", bg="#4C4C4C")           # top layout
+            top_label.pack(ipadx=10, ipady=1, fill='both')
 
-        
+            btn1 = Button(top_label, text = "Run", command=scene_run)
+            btn1.pack()
+        t_label()
 
-        btn1 = Button(top_label, text = "Run", command=scene_run)
-        btn1.pack()
+        def m_label():
+            mid_label = Label(root, text="Box 2", bg="gray")            # mid layout
+            hierarchy_label = Label(mid_label, bg="gray") # heirachy
+            hierarchy_title = Label(hierarchy_label, text="Hierarchy")
 
+            
+            obj_frame = Label(hierarchy_label)
+            scrollbar = Scrollbar(obj_frame)
+            list = Listbox(obj_frame, yscrollcommand=scrollbar.set)
 
-        
-        mid_label = Label(root, text="Box 2", bg="gray")            # mid layout
-        mid_label.pack(ipadx=10, ipady=10, fill='both', expand=True)
-        hierarchy_label = Label(mid_label, text="Hierarchy", bg="blue")
-        hierarchy_label.pack(ipadx=10, ipady=10, expand=True, fill='both', side='left')
-        inspector_label = Label(mid_label, text="Inspector", bg="red")
-        inspector_label.pack(ipadx=10, ipady=10, expand=True, fill='both', side='left')
+            def refresh():
+                h_list.append("box")
+                list.delete(0, END)
+                for item in h_list:
+                    list.insert(END, item)
 
+            add_btn = Button(hierarchy_label, text=' Add ', command=refresh)
 
-        btm_label = Label(root, text="Project", bg="gray")          # bottom layout
-        btm_label.pack(ipadx=10, ipady=10, fill='both', expand=True)
+            mid_label.pack(ipadx=10, ipady=10, fill='both', expand=True)
+            hierarchy_label.pack(ipadx=10, ipady=10, expand=True, fill='both', side='left')
+            hierarchy_title.pack(side='top')
+            add_btn.pack(padx=5, pady=5, side='top')
+            obj_frame.pack(expand=True, fill='both')
+            scrollbar.pack(side='right', fill='both')
+            list.pack(expand=True, fill='both')
+            for item in h_list:
+                list.insert(END, item)
+
+            inspector_label = Label(mid_label, text="Inspector", bg="red") # inspector
+            inspector_label.pack(ipadx=10, ipady=10, expand=True, fill='both', side='left')
+        m_label()
+
+        def b_label():
+            btm_label = Label(root, text="Project", bg="#4C4C4C")          # bottom layout
+            btm_label.pack(ipadx=10, ipady=10, fill='both', expand=True)
+        b_label()
 
     menu_bar()
     main_window()
