@@ -2,8 +2,7 @@ from math import pi, sin, cos
 
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
-from panda3d.core import loadPrcFileData
-
+from panda3d.core import loadPrcFileData    ,MouseWatcher
 
 
 
@@ -43,8 +42,8 @@ class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
 
-        base.disableMouse()
-        base.oobe()   # debugging view
+        #base.oobe()   # debugging view
+
 
 
 
@@ -56,7 +55,22 @@ class MyApp(ShowBase):
 
         axis = self.loader.loadModel("axis.egg")
         axis.reparentTo(self.render)
-        box.setPos(0, 0, 0)
+        axis.setPos(10, 10, 10)
+
+        z = self.loader.loadModel("z.egg")
+        z.reparentTo(self.render)
+        x = self.loader.loadModel("x.egg")
+        x.reparentTo(self.render)
+        y = self.loader.loadModel("y.egg")
+        y.reparentTo(self.render)
+
+        y.setTag('myObjectTag', '1')
+
+
+        # need mouse tutorial
+        
+        if self.mouseWatcherNode.hasMouse():
+            print("a")
 
         print("posotion = " + str(box.get_pos() ) )
         
