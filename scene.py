@@ -2,7 +2,8 @@ from math import pi, sin, cos
 
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
-from panda3d.core import loadPrcFileData,      NodePath ,LineSegs, TextNode
+from panda3d.core import loadPrcFileData
+
 
 
 
@@ -53,15 +54,11 @@ class MyApp(ShowBase):
         #box.scene.setScale(1, 1, 1)
         box.setPos(0, 0, 0)
 
-
+        axis = self.loader.loadModel("axis.egg")
+        axis.reparentTo(self.render)
+        box.setPos(0, 0, 0)
 
         print("posotion = " + str(box.get_pos() ) )
-        # Pin the coords in left-bottom of the screen
-        origin = [0, 3, 0]
-        coords_np, axis_x_np, axis_y_np, axis_z_np = create_axes_cross("coords", 3, True)
-        coords_np.reparentTo(self.cam)
-        coords_np.setPos(self.cam, tuple(origin))
-        coords_np.setScale(0.1)
         
 
 MyApp().run()
