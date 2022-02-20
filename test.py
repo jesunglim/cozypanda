@@ -1,44 +1,34 @@
-from math import pi, sin, cos
-from turtle import forward
-
+import sys
 from direct.showbase.ShowBase import ShowBase
-from direct.task import Task
 from pandac.PandaModules import *
-from panda3d.core import loadPrcFileData
-
-from panda3d.core import Point3
-
-
-
-loadPrcFileData("", "window-title Scene") # window name
-loadPrcFileData("", "icon-filename icon/scene.ico") # window icon
 
 
 class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
 
-        base.disableMouse() 
-        self.camera.setPos(-5,-30,10)
-        self.camera.setHpr(-20,-20,-20)
+
+        # quit when esc is pressed
+        self.accept('escape',sys.exit)
+
+        #base.disableMouse()
 
 
-        # Load the environment model.
+        # load the box model
         box = self.loader.loadModel("models/box")
-        box.reparentTo(self.render)
-        #box.scene.setScale(1, 1, 1)
-        box.setPos(0, 0, 0)
+        box.reparentTo(render)
+        box.setScale(2.0, 2.0, 2.0)
+        box.setPos(8, 50, 0)
 
+        panda = base.loader.loadModel("models/panda")
+        panda.reparentTo(render)
+        panda.setPos(0, 10, 0)
+        panda.setScale(0.1, 0.1, 0.1)
+        cNodePanda = panda.attachNewNode(CollisionNode('cnode_panda'))
+        cNodePanda.node().addSolid(CollisionSphere(0,0,5,5))
+        cNodePanda.show()
 
-        # 모델 불러오기
-        z = self.loader.loadModel("z.egg")
-        z.reparentTo(self.render)
-        x = self.loader.loadModel("x.egg")
-        x.reparentTo(self.render)
-        y = self.loader.loadModel("y.egg")
-        y.reparentTo(self.render)
-
-        # mouse picker
+        # CollisionTraverser  and a Collision Handler is set up
         self.picker = CollisionTraverser()
         self.picker.showCollisions(render)
         self.pq = CollisionHandlerQueue() 
@@ -46,11 +36,8 @@ class MyApp(ShowBase):
         self.pickerNode = CollisionNode('mouseRay')
         self.pickerNP = camera.attachNewNode(self.pickerNode)
         self.pickerNode.setFromCollideMask(BitMask32.bit(1))
-        # colliders
         box.setCollideMask(BitMask32.bit(1)) 
-        z.setCollideMask(BitMask32.bit(1))
-        x.setCollideMask(BitMask32.bit(1))
-        y.setCollideMask(BitMask32.bit(1))
+        panda.setCollideMask(BitMask32.bit(1))
 
         self.pickerRay = CollisionRay()
         self.pickerNode.addSolid(self.pickerRay)
@@ -66,7 +53,6 @@ class MyApp(ShowBase):
 
             # get the mouse position
             mpos = base.mouseWatcherNode.getMouse()
-            mpos_x = mpos.getX()
 
             # set the position of the ray based on the mouse position
             self.pickerRay.setFromLens(base.camNode,mpos.getX(),mpos.getY())
@@ -77,11 +63,5 @@ class MyApp(ShowBase):
                 pickedObj = self.pq.getEntry(0).getIntoNodePath()
                 print('click on ' + pickedObj.getName())
 
-
-
-                
-    
-
-MyApp().run()
-
-
+app = MyApp()
+app.run()
